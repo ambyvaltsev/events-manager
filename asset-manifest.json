@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/https//:ambyvaltsev.github.io/events-manager/static/css/main.f6aa2b4e.css",
-    "main.js": "/https//:ambyvaltsev.github.io/events-manager/static/js/main.9525ee0e.js",
+    "main.js": "/https//:ambyvaltsev.github.io/events-manager/static/js/main.eabbac86.js",
     "index.html": "/https//:ambyvaltsev.github.io/events-manager/index.html",
     "main.f6aa2b4e.css.map": "/https//:ambyvaltsev.github.io/events-manager/static/css/main.f6aa2b4e.css.map",
-    "main.9525ee0e.js.map": "/https//:ambyvaltsev.github.io/events-manager/static/js/main.9525ee0e.js.map"
+    "main.eabbac86.js.map": "/https//:ambyvaltsev.github.io/events-manager/static/js/main.eabbac86.js.map"
   },
   "entrypoints": [
     "static/css/main.f6aa2b4e.css",
-    "static/js/main.9525ee0e.js"
+    "static/js/main.eabbac86.js"
   ]
 }
