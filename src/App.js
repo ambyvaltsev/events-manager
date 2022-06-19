@@ -18,7 +18,7 @@ function App() {
   useLoadData();
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/events-manager">
         <Header />
         <Routes>
           <Route path="/" element={<Main />}>
