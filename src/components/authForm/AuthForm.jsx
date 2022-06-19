@@ -5,9 +5,7 @@ import { useForm } from "react-hook-form";
 
 export const AuthForm = (props) => {
   const { auth, setAuth, cansel, ok, name } = props;
-  const { register, handleSubmit, formState: {errors, isValid} } = useForm({
-    mode: "onBlur",
-  });
+  const { register, handleSubmit, formState: {errors} } = useForm();
 
   return (
     <form action="#" name="auth" onSubmit={handleSubmit(ok)} className={s.form}>
@@ -36,7 +34,7 @@ export const AuthForm = (props) => {
         <div className={s.error}>{errors?.password && <p>{errors?.password?.message || "Error!"}</p>}</div>
       </div>
       <div className={s.btns}>
-        <Button name={name} isValid={isValid} auth />
+        <Button name={name} />
         <Button name="CANSEL" onClick={cansel} />
       </div>
     </form>
