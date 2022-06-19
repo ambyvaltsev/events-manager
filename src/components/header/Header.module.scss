@@ -1,0 +1,40 @@
+.container {
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 5px;
+  border-bottom: 2px solid black;
+  .title {
+    font-size: 25px;
+    font-weight: 900;
+    @media (max-width: 575.98px) {
+      font-size: 19px;
+    }
+  }
+  .date {
+    font-size: 18px;
+    display: flex;
+    @media (max-width: 575.98px) {
+      font-size: 15px;
+    }
+  }
+  .userArea {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .user {
+      font-size: 18px;
+      @media (max-width: 575.98px) {
+      font-size: 15px;
+    }
+    }
+  }
+  .auth {
+    font-size: 20px;
+    @media (max-width: 575.98px) {
+      font-size: 15px;
+    }
+  }
+}

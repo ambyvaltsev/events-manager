@@ -1,0 +1,56 @@
+.option {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.4);
+
+  .btn {
+    font-size: 32px;
+    &._active {
+      transform: rotate(180deg);
+    }
+  }
+  .display {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border-right: 1px solid black;
+  }
+  .body {
+    display: none;
+    position: absolute;
+    width: calc(100% + 5px);
+    top: calc(100% + 5px);
+    left: -2px;
+    height: 100px;
+    overflow-y: none;
+    background-color: white;
+    &._active {
+      display: block;
+    }
+    .scrollWrapper {
+      .item {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        width: 100%;
+        padding: 5px 0;
+        font-size: 18px;
+        background-color: white;
+        &:hover {
+          color: white;
+          background-color: rgba(34, 37, 40, 0.7);
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

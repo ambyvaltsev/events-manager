@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import { Header } from "./components/header/Header";
+import { WeekView } from "./features/events/weekView/WeekView";
+import { MonthView } from "./features/events/monthView/MonthView";
+import { Main } from "./features/events/main/Main";
+import { EventInnerView } from "./components/eventInnerView/EventInnerView";
+import { Auth } from "./features/auth/Auth";
+import { useSelector } from "react-redux";
+import { Alert } from "./features/alert/Alert";
+import { useShowError } from "./hooks/useShowError";
+import { useLoadData } from "./hooks/useLoadData";
+
 
 function App() {
+  const isAuth = useSelector(state => state.auth.entities.isAuth)
+  const alert = useSelector((state) => state.alert);
+  useShowError();
+  useLoadData();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Main />}>
+            <Route path="/" element={<Navigate to="/week" />} />
+            <Route path="week" element={<WeekView />} />
+            <Route path="event/:id" element={<EventInnerView />} />
+            <Route path="month" element={<MonthView />} />
+            <Route path="*" element={<Navigate to="/week" />} />
+          </Route>
+          <Route path="auth" element={isAuth ? <Navigate to="/week" /> : <Auth />} />
+        </Routes>
+        {alert.status && <Alert />}
+      </BrowserRouter>
     </div>
   );
 }
