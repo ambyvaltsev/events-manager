@@ -22,8 +22,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />}>
-             <Route path="/" element={<Navigate to="/week" />} />
-            <Route path="/week" element={<WeekView />} />
+             {/* <Route path="/" element={<Navigate to="/week" />} /> */}
+            <Route index/* path="/week" */ element={<WeekView />} />
             <Route path="/event/:id" element={<EventInnerView />} />
             <Route path="/month" element={<MonthView />} />
             <Route path="*" element={<Navigate to="/week" />} />
