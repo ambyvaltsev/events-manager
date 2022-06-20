@@ -1,7 +1,7 @@
 {
-  "name": "scheduler",
+  "name": "events-manager",
   "version": "0.1.0",
-  "homepage": "https://ambyvaltsev.github.io/events-manager/week",
+  "homepage": "https://ambyvaltsev.github.io/events-manager/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
