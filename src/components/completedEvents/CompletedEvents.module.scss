@@ -2,9 +2,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
+  right: 0;
+  overflow-y: hidden;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
