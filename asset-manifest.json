@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/events-manager/static/css/main.b053797d.css",
-    "main.js": "/events-manager/static/js/main.f4b43392.js",
+    "main.js": "/events-manager/static/js/main.a5c0118a.js",
     "index.html": "/events-manager/index.html",
     "main.b053797d.css.map": "/events-manager/static/css/main.b053797d.css.map",
-    "main.f4b43392.js.map": "/events-manager/static/js/main.f4b43392.js.map"
+    "main.a5c0118a.js.map": "/events-manager/static/js/main.a5c0118a.js.map"
   },
   "entrypoints": [
     "static/css/main.b053797d.css",
-    "static/js/main.f4b43392.js"
+    "static/js/main.a5c0118a.js"
   ]
 }
