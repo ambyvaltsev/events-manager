@@ -11,14 +11,14 @@ export const SignUp = () => {
     dispatch(createUser(reg))
       .unwrap()
       .then((res) => {
-        if (res) navigator("/week");
+        if (res) navigator("/");
       });
 
     setReg({ login: "", password: "" });
   };
   const handleCansel = (e) => {
     e.preventDefault()
-    navigator("/week");
+    navigator("/");
   };
   return (
     <>

@@ -43,7 +43,7 @@ export const MonthView = () => {
     if (dataSelectedMonth.dates.includes(+target) && dataSelectedMonth.tickers) {
       ticker = dataSelectedMonth.tickers.find((ticker) => ticker.split("-")[2] === target);
       dispatch(updTicker(ticker));
-      navigator("/week");
+      navigator("/");
     }
   };
 

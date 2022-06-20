@@ -12,11 +12,11 @@ export const LogIn = () => {
     dispatch(loginUser(login))
       .unwrap()
       .then((res) => {
-        if (res) navigator("/week");
+        if (res) navigator("/");
       });
   };
   const handleCansel = () => {
-    navigator("/week");
+    navigator("/");
   };
   return (
     <AuthForm

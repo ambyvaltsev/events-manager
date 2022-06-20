@@ -22,7 +22,7 @@ export const Main = () => {
             style={{ fontSize: "18px", padding: "3px" }}
           />
         </div>
-        <Link className={s.link} to="week">
+        <Link className={s.link} to="/">
           Week
         </Link>
         <Link className={s.link} to="month">
