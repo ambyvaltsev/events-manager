@@ -19,7 +19,7 @@ export const WeekView = () => {
   const completedEvents = useCheckCompletedEvents(events.events);
   return (
     <main className={s.container}>
-      <NextPrevBtns isWeek date={weekDates} update={update} value={7} />
+      {/* <NextPrevBtns isWeek date={weekDates} update={update} value={7} /> */}
       <div className={s.weekDays}>
         {isTablet
           ? weekDates.map((day) => (
