@@ -5,11 +5,11 @@ export const Input = ({ label, register, required, ...rest }) => {
   if (label === "login") {
     reg = {
       ...register(label, {
-        required: "Поле обязательно к заполнению",
+        required: "The field is required",
         minLength: { value: 5, message: "Минимум 5 символов" },
         pattern: {
           value: /[A-Za-z]/,
-          message: "Только латинцкие буквы",
+          message: "Only latin letters",
         },
       }),
     };
@@ -17,11 +17,11 @@ export const Input = ({ label, register, required, ...rest }) => {
   if (label === "password") {
     reg = {
       ...register(label, {
-        required: "Поле обязательно к заполнению",
+        required: "The field is required",
         minLength: { value: 5, message: "Минимум 5 символов" },
         pattern: {
           value: /(?=.*[0-9])([A-Za-z])/,
-          message: "Только латинцкие буквы и минимум одно число",
+          message: "Only latin letters and at least one number",
         },
       }),
     };
