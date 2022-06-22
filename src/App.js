@@ -22,10 +22,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />}>
             <Route index element={<WeekView />} />
-            <Route path="/event/:id" element={<EventInnerView />} />
-            <Route path="/month" element={<MonthView />} />
+            <Route path="event/:id" element={<EventInnerView />} />
+            <Route path="month" element={<MonthView />} />
           </Route>
-          <Route path="auth" element={<Auth />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<Navigate to="/week" />} />
         </Routes>
       </BrowserRouter>
