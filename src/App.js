@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { Alert } from "./features/alert/Alert";
 import { useShowError } from "./hooks/useShowError";
 import { useLoadData } from "./hooks/useLoadData";
+import { PageNotFound } from "./components/pageNotFound/PageNotFound";
 
 function App() {
   const isAuth = useSelector((state) => state.auth.entities.isAuth);
@@ -26,7 +27,7 @@ function App() {
             <Route path="month" element={<MonthView />} />
           </Route>
           <Route path="/auth" element={<Auth />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
         {alert.status && <Alert />}
