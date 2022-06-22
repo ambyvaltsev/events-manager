@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter basename="/events-manager">
         <Header />
         <Routes>
-          <Route path="/" element={<Main />}>
+          <Route path="/*" element={<Main />}>
             <Route index element={<WeekView />} />
             <Route path="event/:id" element={<EventInnerView />} />
             <Route path="month" element={<MonthView />} />
