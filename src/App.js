@@ -28,8 +28,8 @@ function App() {
           <Route path="auth" element={<Auth />} />
           <Route path="*" element={<Navigate to="/week" />} />
         </Routes>
-        {alert.status && <Alert />}
       </BrowserRouter>
+        {alert.status && <Alert />}
     </div>
   );
 }
