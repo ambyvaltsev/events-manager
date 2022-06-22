@@ -27,7 +27,7 @@ function App() {
             <Route path="/month" element={<MonthView />} />
             <Route path="*" element={<Navigate to="/week" />} />
           </Route>
-          <Route path="/auth" element={isAuth ? <Navigate to="/week" /> : <Auth />} />
+          <Route path="/auth" element={<Auth/>} />
         </Routes>
         {alert.status && <Alert />}
       </BrowserRouter>
