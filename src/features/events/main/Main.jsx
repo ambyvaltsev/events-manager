@@ -25,7 +25,7 @@ export const Main = () => {
         <Link className={s.link} to="/">
           Week
         </Link>
-        <Link className={s.link} to="/month">
+        <Link className={s.link} to="month">
           Month
         </Link>
       </div>
