@@ -10,9 +10,8 @@ import { Alert } from "./features/alert/Alert";
 import { useShowError } from "./hooks/useShowError";
 import { useLoadData } from "./hooks/useLoadData";
 
-
 function App() {
-  const isAuth = useSelector(state => state.auth.entities.isAuth)
+  const isAuth = useSelector((state) => state.auth.entities.isAuth);
   const alert = useSelector((state) => state.alert);
   useShowError();
   useLoadData();
@@ -25,9 +24,9 @@ function App() {
             <Route index element={<WeekView />} />
             <Route path="/event/:id" element={<EventInnerView />} />
             <Route path="/month" element={<MonthView />} />
-            <Route path="*" element={<Navigate to="/week" />} />
           </Route>
-          <Route path="/auth" element={<Auth/>} />
+          <Route path="auth" element={<Auth />} />
+          <Route path="*" element={<Navigate to="/week" />} />
         </Routes>
         {alert.status && <Alert />}
       </BrowserRouter>
