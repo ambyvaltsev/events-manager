@@ -12,7 +12,6 @@ import { useLoadData } from "./hooks/useLoadData";
 import { PageNotFound } from "./components/pageNotFound/PageNotFound";
 
 function App() {
-  const isAuth = useSelector((state) => state.auth.entities.isAuth);
   const alert = useSelector((state) => state.alert);
   useShowError();
   useLoadData();
@@ -25,12 +24,12 @@ function App() {
             <Route index element={<WeekView />} />
             <Route path="event/:id" element={<EventInnerView />} />
             <Route path="month" element={<MonthView />} />
+            <Route path="auth" element={<Auth />} />
+            <Route path="*" element={<PageNotFound />} />
           </Route>
-          <Route path="/auth" element={<Auth />} />
-          <Route path="*" element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
-        {alert.status && <Alert />}
+      {alert.status && <Alert />}
     </div>
   );
 }
