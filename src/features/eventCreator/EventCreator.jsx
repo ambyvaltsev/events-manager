@@ -20,12 +20,9 @@ export const EventCreator = ({ closeEventCreater }) => {
   const event = useSelector((state) => state.creator.event);
   const dispatch = useDispatch();
   const getValue = (e) => {
-    e.target.dataset.name === "option-time" &&
-      dispatch(getDataFromTime(+e.target.textContent.split(":")[0]));
-    e.target.dataset.name === "option-days" &&
-      dispatch(getDataFromDays(+e.target.textContent));
-    e.target.dataset.name === "option-hours" &&
-      dispatch(getDataFromHours(+e.target.textContent));
+    e.target.dataset.name === "option-time" && dispatch(getDataFromTime(+e.target.textContent.split(":")[0]));
+    e.target.dataset.name === "option-days" && dispatch(getDataFromDays(+e.target.textContent));
+    e.target.dataset.name === "option-hours" && dispatch(getDataFromHours(+e.target.textContent));
   };
   const handleCancel = () => {
     dispatch(cancelEventCreator());
@@ -36,12 +33,9 @@ export const EventCreator = ({ closeEventCreater }) => {
   };
 
   useEffect(() => {
-    document
-      .querySelector('[data-name="options"]')
-      .addEventListener("click", getValue);
+    document.querySelector('[data-name="options"]').addEventListener("click", getValue);
   }, []);
 
-  
   return (
     <div className={s.container}>
       <div className={s.options} data-name="options">

@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./components/header/Header";
 import { WeekView } from "./features/events/weekView/WeekView";
 import { MonthView } from "./features/events/monthView/MonthView";
@@ -24,9 +24,9 @@ function App() {
             <Route index element={<WeekView />} />
             <Route path="event/:id" element={<EventInnerView />} />
             <Route path="month" element={<MonthView />} />
-            <Route path="auth" element={<Auth />} />
-            <Route path="*" element={<PageNotFound />} />
           </Route>
+          <Route path="auth" element={<Auth />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
       {alert.status && <Alert />}

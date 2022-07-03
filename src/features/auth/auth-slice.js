@@ -1,101 +1,82 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { defaultEvents } from '../events/events-slice';
+import { defaultEvents } from "../events/events-slice";
 
+export const createUser = createAsyncThunk("@@auth/createUser", async (user, { rejectWithValue }) => {
+  const checkUser = await axios({
+    url: `https://62aa4db13b3143855445970a.mockapi.io/users?login=${user.login}`,
+    method: "GET",
+  });
 
-
-export const createUser = createAsyncThunk(
-  "@@auth/createUser",
-  async (user, { rejectWithValue }) => {
-    try {
-      const checkUser = await axios({
-        url: `https://62aa4db13b3143855445970a.mockapi.io/users?login=${user.login}`,
-        method: "GET",
-      });
-
-      if (checkUser.data.some(u => u.login === user.login)) {
-        throw new Error("There is already a user with the same name");
-      }
-      const newUser = {
-        login: user.login,
-        password: user.password,
-        isAuth: true,
-      };
-      const newUserEvents = {
-        [user.login]: [],
-      };
-      const newUserExceptions = {
-        [user.login]: [],
-      };
-
-      const newUserConfig = {
-        url: "https://62aa4db13b3143855445970a.mockapi.io/users",
-        method: "POST",
-        headers: { "Content-Type": " application/json" },
-        data: newUser,
-      }
-      const eventsConfig = {
-        url: "https://62aa4db13b3143855445970a.mockapi.io/events",
-        method: "POST",
-        headers: { "Content-Type": " application/json" },
-        data: newUserEvents,
-      }
-      const exceptionsConfig = {
-        url: "https://62aa4db13b3143855445970a.mockapi.io/exceptions",
-        method: "POST",
-        headers: { "Content-Type": " application/json" },
-        data: newUserExceptions,
-      }
-
-      const response = await Promise.all([axios(newUserConfig), axios(eventsConfig), axios(exceptionsConfig)])
-
-      return response[0].data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+  if (checkUser.data.some((u) => u.login === user.login)) {
+   return  rejectWithValue("There is already a user with the same name");
   }
-);
-export const loginUser = createAsyncThunk(
-  "@@auth/loginUser",
-  async (user, { rejectWithValue }) => {
-    try {
-      const checkUser = await axios({
-        url: `https://62aa4db13b3143855445970a.mockapi.io/users?login=${user.login}&password=${user.password}`,
-        method: "GET",
-      });
+  const newUser = {
+    login: user.login,
+    password: user.password,
+    isAuth: true,
+  };
+  const newUserEvents = {
+    [user.login]: [],
+  };
+  const newUserExceptions = {
+    [user.login]: [],
+  };
 
-      if (checkUser.data.length === 0) {
-        throw new Error("Incorrect login or password");
-      }
-      //дополнительная проверка, тк мокапи не позволяет нормальный поиск по параметрам (возвращает все совпадения)
-      if (checkUser.data[0].login !== user.login || checkUser.data[0].password !== user.password) {
-        throw new Error("Incorrect login or password");
-      }
+  const newUserConfig = {
+    url: "https://62aa4db13b3143855445970a.mockapi.io/users",
+    method: "POST",
+    headers: { "Content-Type": " application/json" },
+    data: newUser,
+  };
+  const eventsConfig = {
+    url: "https://62aa4db13b3143855445970a.mockapi.io/events",
+    method: "POST",
+    headers: { "Content-Type": " application/json" },
+    data: newUserEvents,
+  };
+  const exceptionsConfig = {
+    url: "https://62aa4db13b3143855445970a.mockapi.io/exceptions",
+    method: "POST",
+    headers: { "Content-Type": " application/json" },
+    data: newUserExceptions,
+  };
 
-      const login = await axios({
-        url: `https://62aa4db13b3143855445970a.mockapi.io/users/${checkUser.data[0].id}`,
-        method: "PUT",
-        headers: { "Content-Type": " application/json" },
-        data: { isAuth: true },
-      });
-      return login.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+  const response = await Promise.all([axios(newUserConfig), axios(eventsConfig), axios(exceptionsConfig)]);
+
+  return response[0].data;
+});
+export const loginUser = createAsyncThunk("@@auth/loginUser", async (user, { rejectWithValue }) => {
+  const checkUser = await axios({
+    url: `https://62aa4db13b3143855445970a.mockapi.io/users?login=${user.login}&password=${user.password}`,
+    method: "GET",
+  });
+
+  if (checkUser.data.length === 0) {
+    return  rejectWithValue("Incorrect login or password");
   }
-);
-export const logoutUser = createAsyncThunk(
-  "@@auth/logoutUser",
-  async (_, { getState, dispatch }) => {
-    dispatch(defaultEvents())
-    const userID = getState().auth.entities.id;
-    const response = axios({
-      url: `https://62aa4db13b3143855445970a.mockapi.io/users/${userID}`,
-      method: "PUT",
-      data: { isAuth: false },
-    });
+  //дополнительная проверка, тк мокапи не позволяет нормальный поиск по параметрам (возвращает все совпадения)
+  if (checkUser.data[0].login !== user.login || checkUser.data[0].password !== user.password) {
+    return  rejectWithValue("Incorrect login or password");
   }
-);
+
+  const login = await axios({
+    url: `https://62aa4db13b3143855445970a.mockapi.io/users/${checkUser.data[0].id}`,
+    method: "PUT",
+    headers: { "Content-Type": " application/json" },
+    data: { isAuth: true },
+  });
+  return login.data;
+});
+export const logoutUser = createAsyncThunk("@@auth/logoutUser", async (_, { getState, dispatch }) => {
+  dispatch(defaultEvents());
+  const userID = getState().auth.entities.id;
+  const response = axios({
+    url: `https://62aa4db13b3143855445970a.mockapi.io/users/${userID}`,
+    method: "PUT",
+    data: { isAuth: false },
+  });
+});
 
 const initialState = {
   isAuth: false,

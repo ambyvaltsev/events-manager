@@ -1,39 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 const checkEvent = (event) => {
-    if (event.day + event.days > 8) {
-        let leftPart;
-        let duration = event.day + event.days - 8;
-        let restDays = 7 - event.day + 1;
-        let newDate = new Date(event.year, event.month, event.date);
-        newDate.setDate(newDate.getDate() + restDays);
-        newDate = newDate.getDate();
-        leftPart = { ...event, date: newDate, day: 1, days: duration };
-        return {
-            leftPart: leftPart,
-            restDays: restDays,
-            location: `${event.time}-${leftPart.day}-${leftPart.date}-${event.month}-${event.year}/${duration}`,
-        };
-    }
-    return null;
+  if (event.day + event.days > 8) {
+    let leftPart;
+    let duration = event.day + event.days - 8;
+    let restDays = 7 - event.day + 1;
+    let newDate = new Date(event.year, event.month, event.date);
+    newDate.setDate(newDate.getDate() + restDays);
+    newDate = newDate.getDate();
+    leftPart = { ...event, date: newDate, day: 1, days: duration };
+    return {
+      leftPart: leftPart,
+      restDays: restDays,
+      location: `${event.time}-${leftPart.day}-${leftPart.date}-${event.month}-${event.year}/${duration}`,
+    };
+  }
+  return null;
 };
 const defineExceptions = (event) => {
-    let exception = [];
-    for (let i = 0; i < event.days; i++) {
-        let date = new Date(event.year, event.month, event.date);
-        date.setDate(date.getDate() + i);
-        let day = date.getDay() === 0 ? 7 : date.getDay();
-        let month = date.getMonth();
-        let year = date.getFullYear();
-        for (let j = 0; j < event.hours; j++) {
-            exception.push(
-                `${event.time + j}-${day}-${date.getDate()}-${month}-${year}`
-            );
-        }
+  let exception = [];
+  for (let i = 0; i < event.days; i++) {
+    let date = new Date(event.year, event.month, event.date);
+    date.setDate(date.getDate() + i);
+    let day = date.getDay() === 0 ? 7 : date.getDay();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    for (let j = 0; j < event.hours; j++) {
+      exception.push(`${event.time + j}-${day}-${date.getDate()}-${month}-${year}`);
     }
-    return exception;
+  }
+  return exception;
 };
-
-
 
 const initialState = {
   event: {
@@ -71,10 +67,12 @@ export const createEventSlice = createSlice({
         } else {
           state.leftPart = null;
         }
-        let location = `${state.event.time}-${state.event.day}-${state.event.date}-${state.event.month}-${state.event.year}/${values ? values.restDays : state.event.days}`;
+        let location = `${state.event.time}-${state.event.day}-${state.event.date}-${state.event.month}-${
+          state.event.year
+        }/${values ? values.restDays : state.event.days}`;
         state.event.locations.push(location);
         state.event.exceptions.push(...defineExceptions(state.event));
-        state.event.id = action.payload
+        state.event.id = action.payload;
       },
     },
     getDataFromTitle: {
@@ -134,11 +132,7 @@ export const createEventSlice = createSlice({
     },
     selectDate: {
       reducer: (state, action) => {
-        let selectedDay = new Date(
-          state.event.year,
-          state.event.month,
-          action.payload
-        );
+        let selectedDay = new Date(state.event.year, state.event.month, action.payload);
         selectedDay = selectedDay.getDay() === 0 ? 7 : selectedDay.getDay();
         state.event.date = action.payload;
         state.event.day = selectedDay;

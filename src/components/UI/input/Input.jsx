@@ -30,7 +30,7 @@ export const Input = ({ label, register, required, ...rest }) => {
   return (
     <div>
       <label className={s.label}>{label.toUpperCase()}:</label>
-      <input {...reg} className={s.title} {...rest} />
+      <input {...reg} className={s.input} {...rest} />
     </div>
   );
 };
