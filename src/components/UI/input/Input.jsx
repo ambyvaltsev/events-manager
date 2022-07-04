@@ -20,7 +20,7 @@ export const Input = ({ label, register, required, ...rest }) => {
         required: "The field is required",
         minLength: { value: 5, message: "Минимум 5 символов" },
         pattern: {
-          value: /(?=.*[0-9])([A-Za-z])/,
+          value: /((?=.*[0-9])([A-Za-z0-9]))/,
           message: "Only latin letters and at least one number",
         },
       }),
