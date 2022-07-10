@@ -1,6 +1,6 @@
 export const loadState = () => {
   try {
-    const saveState = localStorage.getItem("state");
+    const saveState = localStorage.getItem("EventManager");
 
     if (saveState === null) {
       return undefined;
@@ -14,9 +14,9 @@ export const loadState = () => {
 
 export const saveState = (state) => {
   const stateToBeSaved = JSON.stringify(state);
-  localStorage.setItem("state", stateToBeSaved);
+  localStorage.setItem("EventManage", stateToBeSaved);
 };
 
 export const removeState = () => {
-  localStorage.removeItem("state");
+  localStorage.removeItem("EventManage");
 };
