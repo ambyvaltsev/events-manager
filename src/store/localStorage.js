@@ -14,9 +14,9 @@ export const loadState = () => {
 
 export const saveState = (state) => {
   const stateToBeSaved = JSON.stringify(state);
-  localStorage.setItem("EventManage", stateToBeSaved);
+  localStorage.setItem("EventManager", stateToBeSaved);
 };
 
 export const removeState = () => {
-  localStorage.removeItem("EventManage");
+  localStorage.removeItem("EventManager");
 };
