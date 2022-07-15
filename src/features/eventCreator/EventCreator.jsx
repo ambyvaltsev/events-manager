@@ -1,7 +1,7 @@
 import s from "./EventCreator.module.scss";
 import { Calendar } from "../../components/calendar/Calendar";
 import { Button } from "../../components/UI/button/Button";
-import { time, weekFull } from "../../assets/date_arrays";
+import { time, weekFull } from "../../utils/date_arrays";
 import { Input } from "../../components/UI/input/Input";
 import { useEffect } from "react";
 import { EventOption } from "../../components/eventOption/EventOption";

@@ -1,6 +1,6 @@
 import s from "./NextPrevBtns.module.scss";
 import { CgChevronLeftO, CgChevronRightO } from "react-icons/cg";
-import { months } from "../../assets/date_arrays";
+import { months } from "../../utils/date_arrays";
 
 export const NextPrevBtns = (props) => {
   const { update, date, value, isWeek, isMonth, handlePrev, handleNext } = props;

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { time } from "../../../assets/date_arrays";
+import { time } from "../../../utils/date_arrays";
 
 const getDataForGrid = (week) => {
   return time.reduce((acc, cur) => {

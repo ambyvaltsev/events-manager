@@ -1,5 +1,5 @@
 import s from "./CompletedEvents.module.scss";
-import { weekFull, months } from "../../assets/date_arrays";
+import { weekFull, months } from "../../utils/date_arrays";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../UI/button/Button";
 import { useActions } from "../../hooks/useActions";

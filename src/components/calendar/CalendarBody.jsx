@@ -1,5 +1,5 @@
 import s from "./Calendar.module.scss";
-import { months } from "../../assets/date_arrays";
+import { months } from "../../utils/date_arrays";
 import { Button } from "../UI/button/Button";
 import { useSelector } from "react-redux";
 import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";

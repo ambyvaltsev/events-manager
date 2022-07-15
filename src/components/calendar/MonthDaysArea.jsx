@@ -1,6 +1,6 @@
 import s from "./Calendar.module.scss";
 import { useSelector } from "react-redux";
-import { weekShort } from "../../assets/date_arrays";
+import { weekShort } from "../../utils/date_arrays";
 import { useDisplayDaysInMonth } from "../../hooks/useDisplayDaysInMonth";
 
 export const MonthDaysArea = () => {

@@ -1,6 +1,6 @@
 import s from "./MonthView.module.scss";
 import { useDisplayDaysInMonth } from "../../../hooks/useDisplayDaysInMonth";
-import { weekShort, weekFull, months } from "../../../assets/date_arrays";
+import { weekShort, weekFull, months } from "../../../utils/date_arrays";
 import { useMatchMedia } from "../../../hooks/useMatchMedia";
 import { useState, useEffect } from "react";
 import { NextPrevBtns } from "../../../components/nextPrevBtns/NextPrevBtns";

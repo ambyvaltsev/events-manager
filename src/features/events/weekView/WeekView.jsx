@@ -1,5 +1,5 @@
 import s from "./WeekView.module.scss";
-import { time } from "../../../assets/date_arrays";
+import { time } from "../../../utils/date_arrays";
 import { EventOuterView } from "../../../components/eventOuterView/EventOuterView";
 import { useSelector } from "react-redux";
 import { NextPrevBtns } from "../../../components/nextPrevBtns/NextPrevBtns";

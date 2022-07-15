@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { weekFull } from "../../../assets/date_arrays";
+import { weekFull } from "../../../utils/date_arrays";
 import { useDispatch } from "react-redux";
 import { updTicker } from "../events-slice";
 

@@ -1,5 +1,5 @@
 import s from "./Calendar.module.scss";
-import { weekFull } from "../../assets/date_arrays";
+import { weekFull } from "../../utils/date_arrays";
 import { ImCalendar } from "react-icons/im";
 
 export const CalendarHead = ({ date, day, month, onClick }) => {
