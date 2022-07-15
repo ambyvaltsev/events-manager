@@ -3,8 +3,6 @@ import { useGetEvent } from "./useGetEvent";
 import { weekFull, months } from "../../assets/date_arrays";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../UI/button/Button";
-import { loadEvents } from "../../features/events/events-slice";
-import { useSelector, useDispatch } from "react-redux";
 
 
 

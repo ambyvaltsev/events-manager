@@ -1,22 +1,23 @@
 import s from "./Calendar.module.scss";
 import { months } from "../../assets/date_arrays";
 import { Button } from "../UI/button/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { nextMonth, prevMonth, cancelCalendar } from "../../features/eventCreator/eventCreater-slice";
+import { useSelector } from "react-redux";
 import { BiRightArrowCircle, BiLeftArrowCircle } from "react-icons/bi";
 import { MonthDaysArea } from "./MonthDaysArea";
+import { useActions } from "../../hooks/useActions";
 
 export const CalendarBody = ({ isOpen, setIsOpen }) => {
+  const { nextMonth, prevMonth, cancelCalendar } = useActions();
   const event = useSelector((state) => state.creator.event);
-  const dispatch = useDispatch();
+
   const handleNextMonth = () => {
-    dispatch(nextMonth(1));
+    nextMonth(1);
   };
   const handlePrevMonth = () => {
-    dispatch(prevMonth(1));
+    prevMonth(1);
   };
   const handleCancel = () => {
-    dispatch(cancelCalendar());
+    cancelCalendar();
     setIsOpen(false);
   };
 

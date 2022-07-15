@@ -2,19 +2,17 @@ import s from "./CompletedEvents.module.scss";
 import { weekFull, months } from "../../assets/date_arrays";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../UI/button/Button";
-import { useDispatch } from "react-redux";
-import { postponeEvent } from "../../features/events/events-slice";
-import { removeEvent } from "../../features/events/events-slice";
+import { useActions } from "../../hooks/useActions";
 
 export const CompletedEvent = ({ event, index }) => {
+  const { removeEvent, postponeEvent } = useActions();
   const navigator = useNavigate();
   const { id, date, day, month } = event;
-  const dispatch = useDispatch();
   const handlePostponeEvent = () => {
-    dispatch(postponeEvent(id));
+    postponeEvent(id);
   };
   const handleRemoveEvent = () => {
-    dispatch(removeEvent(event));
+    removeEvent(event);
   };
   return (
     <div className={s.event}>

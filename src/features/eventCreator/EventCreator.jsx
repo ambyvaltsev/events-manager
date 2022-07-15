@@ -5,31 +5,32 @@ import { time, weekFull } from "../../assets/date_arrays";
 import { Input } from "../../components/UI/input/Input";
 import { useEffect } from "react";
 import { EventOption } from "../../components/eventOption/EventOption";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  getDataFromDays,
-  getDataFromTime,
-  getDataFromTitle,
-  getDataFromText,
-  getDataFromHours,
-  cancelEventCreator,
-} from "./eventCreater-slice";
-import { addEvent } from "../events/events-slice";
+import { useSelector } from "react-redux";
+import { useActions } from "../../hooks/useActions";
 
 export const EventCreator = ({ closeEventCreater }) => {
+  const {
+    addEvent,
+    getDataFromDays,
+    getDataFromTime,
+    getDataFromTitle,
+    getDataFromText,
+    getDataFromHours,
+    cancelEventCreator,
+  } = useActions();
   const event = useSelector((state) => state.creator.event);
-  const dispatch = useDispatch();
+
   const getValue = (e) => {
-    e.target.dataset.name === "option-time" && dispatch(getDataFromTime(+e.target.textContent.split(":")[0]));
-    e.target.dataset.name === "option-days" && dispatch(getDataFromDays(+e.target.textContent));
-    e.target.dataset.name === "option-hours" && dispatch(getDataFromHours(+e.target.textContent));
+    e.target.dataset.name === "option-time" && getDataFromTime(+e.target.textContent.split(":")[0]);
+    e.target.dataset.name === "option-days" && getDataFromDays(+e.target.textContent);
+    e.target.dataset.name === "option-hours" && getDataFromHours(+e.target.textContent);
   };
   const handleCancel = () => {
-    dispatch(cancelEventCreator());
+    cancelEventCreator();
     closeEventCreater();
   };
   const handleCreateEvent = () => {
-    dispatch(addEvent());
+    addEvent();
   };
 
   useEffect(() => {
@@ -63,17 +64,17 @@ export const EventCreator = ({ closeEventCreater }) => {
         type="text"
         label="title"
         value={event.title}
-        onChange={(e) => dispatch(getDataFromTitle(e.target.value))}
+        onChange={(e) => getDataFromTitle(e.target.value)}
       />
       <label htmlFor="text" className={s.textLabel}>
         TEXT:
       </label>
       <textarea
-        name=""
+        name="text"
         id="text"
         className={s.text}
         value={event.text}
-        onChange={(e) => dispatch(getDataFromText(e.target.value))}
+        onChange={(e) => getDataFromText(e.target.value)}
       ></textarea>
       <div className={s.btns} onClick={handleCancel}>
         <Button name="Cancel" />

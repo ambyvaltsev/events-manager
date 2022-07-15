@@ -1,18 +1,18 @@
 import s from "./Calendar.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { selectDate } from "../../features/eventCreator/eventCreater-slice";
 import { CalendarHead } from "./CalendarHead";
 import { CalendarBody } from "./CalendarBody";
+import { useActions } from "../../hooks/useActions";
 
 export const Calendar = () => {
+  const { selectDate } = useActions();
   const [isOpen, setIsOpen] = useState(false);
   const event = useSelector((state) => state.creator.event);
 
-  const dispatch = useDispatch();
   const handleSelectDate = (e) => {
     if (e.target.dataset.name === "date-cell" && e.target.textContent) {
-      dispatch(selectDate(+e.target.textContent));
+      selectDate(+e.target.textContent);
       setIsOpen(false);
     }
   };

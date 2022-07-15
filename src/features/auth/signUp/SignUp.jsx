@@ -1,8 +1,9 @@
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { createUser } from "../auth-slice";
 import { AuthForm } from "../../../components/authForm/AuthForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 export const SignUp = () => {
   const navigator = useNavigate();
   const [reg, setReg] = useState({ login: "", password: "" });
@@ -17,18 +18,12 @@ export const SignUp = () => {
     setReg({ login: "", password: "" });
   };
   const handleCansel = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     navigator("/");
   };
   return (
     <>
-      <AuthForm
-        auth={reg}
-        setAuth={setReg}
-        cansel={handleCansel}
-        ok={handleSignUp}
-        name="SIGN UP"
-      />
+      <AuthForm auth={reg} setAuth={setReg} cansel={handleCansel} ok={handleSignUp} name="SIGN UP" />
     </>
   );
 };

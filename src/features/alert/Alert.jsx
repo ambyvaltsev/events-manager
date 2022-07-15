@@ -1,13 +1,14 @@
 import s from "./Alert.module.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { hideAlert } from "./alert-slice";
+import { useActions } from "../../hooks/useActions";
 
 export const Alert = () => {
+  const { hideAlert } = useActions();
   const alert = useSelector((state) => state.alert.text);
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    const timerId = setTimeout(() => dispatch(hideAlert()), 3000);
+    const timerId = setTimeout(() => hideAlert(), 3000);
     return () => clearTimeout(timerId);
   });
 
