@@ -10,6 +10,7 @@ import { useActions } from "../../hooks/useActions";
 
 export const EventCreator = ({ closeEventCreater }) => {
   const {
+    showAlert,
     addEvent,
     getDataFromDays,
     getDataFromTime,
@@ -20,17 +21,29 @@ export const EventCreator = ({ closeEventCreater }) => {
   } = useActions();
   const event = useSelector((state) => state.creator.event);
 
+  const validateDate = () => {
+    const { time, date, month, year } = event;
+    return new Date(year, month, date, time) <= new Date() ? true : false;
+  };
+
   const getValue = (e) => {
     e.target.dataset.name === "option-time" && getDataFromTime(+e.target.textContent.split(":")[0]);
     e.target.dataset.name === "option-days" && getDataFromDays(+e.target.textContent);
     e.target.dataset.name === "option-hours" && getDataFromHours(+e.target.textContent);
   };
+
   const handleCancel = () => {
     cancelEventCreator();
     closeEventCreater();
   };
-  const handleCreateEvent = () => {
+
+  const createEvent = () => {
+    if (validateDate()) {
+      showAlert("Can't select past time")
+      return 
+    };
     addEvent();
+    handleCancel()
   };
 
   useEffect(() => {
@@ -76,9 +89,9 @@ export const EventCreator = ({ closeEventCreater }) => {
         value={event.text}
         onChange={(e) => getDataFromText(e.target.value)}
       ></textarea>
-      <div className={s.btns} onClick={handleCancel}>
-        <Button name="Cancel" />
-        <Button name="Create event" onClick={() => handleCreateEvent()} />
+      <div className={s.btns}>
+        <Button name="Cancel" onClick={handleCancel} />
+        <Button name="Create event" onClick={() => createEvent()} />
       </div>
     </div>
   );

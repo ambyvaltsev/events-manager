@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../UI/button/Button";
 import { logoutUser } from "../../features/auth/auth-slice";
-import { removeState } from "../../store/localStorage";
-import { useMatchMedia} from '../../hooks/useMatchMedia'
+import { removeState } from "../../utils/localStorage";
+import { useMatchMedia } from "../../hooks/useMatchMedia";
 
 export const Header = () => {
-  const {isMobile} = useMatchMedia()
+  const { isMobile } = useMatchMedia();
   const dispatch = useDispatch();
   const logout = () => {
     removeState();
