@@ -10,7 +10,7 @@ export const Alert = () => {
   useEffect(() => {
     const timerId = setTimeout(() => hideAlert(), 3000);
     return () => clearTimeout(timerId);
-  });
+  }, []);
 
   return <div className={s.container}>{alert}</div>;
 };

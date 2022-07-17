@@ -46,6 +46,7 @@ const initialState = {
     locations: [],
     exceptions: [],
     isPostponed: false,
+    guest: "admin",
   },
   leftPart: {},
 };
@@ -73,6 +74,11 @@ export const createEventSlice = createSlice({
         state.event.locations.push(location);
         state.event.exceptions.push(...defineExceptions(state.event));
         state.event.id = action.payload;
+      },
+    },
+    getDataFromGuest: {
+      reducer: (state, action) => {
+        state.event.guest = action.payload;
       },
     },
     getDataFromTitle: {

@@ -14,13 +14,13 @@ export const Auth = () => {
           <Button
             name="LOG IN"
             onClick={() => setLoginView(true)}
-            style={{ border: "none" }}
+            style={{ border: "none", fontSize: "20px" }}
           />
           <div className={s.line}>|</div>
           <Button
             name="SIGN UP"
             onClick={() => setLoginView(false)}
-            style={{ border: "none" }}
+            style={{ border: "none", fontSize: "20px" }}
           />
         </div>
 

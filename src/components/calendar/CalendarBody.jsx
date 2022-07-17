@@ -26,7 +26,7 @@ export const CalendarBody = ({ isOpen, setIsOpen }) => {
       <div className={s.year}>{event.year}</div>
       <div className={s.month}>
         <BiLeftArrowCircle onClick={handlePrevMonth} className={s.month__btn} />
-        <div>{months[event.month]}</div>
+        <div className={s.month__name}>{months[event.month]}</div>
         <BiRightArrowCircle onClick={handleNextMonth} className={s.month__btn} />
       </div>
       <MonthDaysArea isOpen={isOpen} />

@@ -55,7 +55,7 @@ export const loginUser = createAsyncThunk("@@auth/loginUser", async (user, { rej
   if (checkUser.data.length === 0) {
     return  rejectWithValue("Incorrect login or password");
   }
-  //дополнительная проверка, тк мокапи не позволяет нормальный поиск по параметрам (возвращает все совпадения)
+  
   if (checkUser.data[0].login !== user.login || checkUser.data[0].password !== user.password) {
     return  rejectWithValue("Incorrect login or password");
   }

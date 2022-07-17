@@ -3,8 +3,10 @@ import { weekFull, months } from "../../utils/date_arrays";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../UI/button/Button";
 import { useActions } from "../../hooks/useActions";
+import { useSelector } from "react-redux";
 
 export const CompletedEvent = ({ event, index }) => {
+  const { login } = useSelector((state) => state.auth.entities);
   const { removeEvent, postponeEvent } = useActions();
   const navigator = useNavigate();
   const { id, date, day, month } = event;
@@ -31,11 +33,13 @@ export const CompletedEvent = ({ event, index }) => {
           style={{ fontSize: "14px", padding: "3px", border: "1px solid" }}
           onClick={handlePostponeEvent}
         ></Button>
-        <Button
-          name="Delete"
-          style={{ fontSize: "14px", padding: "3px", border: "1px solid" }}
-          onClick={handleRemoveEvent}
-        ></Button>
+        {login === "admin" && (
+          <Button
+            name="Delete"
+            style={{ fontSize: "14px", padding: "3px", border: "1px solid" }}
+            onClick={handleRemoveEvent}
+          ></Button>
+        )}
       </div>
     </div>
   );

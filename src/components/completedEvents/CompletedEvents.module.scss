@@ -1,27 +1,23 @@
 .container {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
-  overflow-y: hidden;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 50;
+  z-index: 1000;
   .content {
-    z-index: 100;
+    z-index: 1100;
     display: flex;
     flex-direction: column;
     gap: 10px;
     background-color: white;
     padding: 10px 15px;
-    .title {
-      font-size: 23px;
-    }
     .text {
-      font-size: 23px;
+      font-size: 20px;
     }
     .events {
       padding: 10px 0;

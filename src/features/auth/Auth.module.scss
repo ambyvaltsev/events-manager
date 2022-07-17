@@ -9,7 +9,8 @@
     min-width: 270px;
     .title {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 10px;
       align-items: center;
       padding: 10px 5px;
       .line {

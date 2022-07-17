@@ -1,43 +1,28 @@
 import s from "./EventOption.module.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { VscTriangleDown } from "react-icons/vsc";
-import { useScrollbar } from "../../hooks/useScrollbar";
+import { useSelectData } from "../../hooks/useSelectData";
 
-export const EventOption = ({ byIndex, data, selectValue, optionValue }) => {
-  const optionWrapper = useRef(null);
+export const EventOption = ({ list, defaultValue, optionDataset }) => {
   const [isOpen, setIsOpen] = useState(false);
   const event = useSelector((state) => state.creator.event);
-
-  useScrollbar(optionWrapper);
+  const { guest } = useSelector((state) => state.events.entities);
+  const [selectData] = useSelectData();
 
   useEffect(() => {
     setIsOpen(false);
-  }, [event.time, event.days, event.hours]);
+  }, [event, guest]);
   return (
     <div className={s.option}>
-      <div className={s.display}>{selectValue}</div>
+      <div className={s.display}>{defaultValue}</div>
       <VscTriangleDown className={`${s.btn} ${isOpen && s._active}`} onClick={() => setIsOpen(!isOpen)} />
-      <div className={`${s.body} ${isOpen && s._active}`}>
-        <div
-          ref={optionWrapper}
-          style={{
-            height: "120px",
-          }}
-          className={s.scrollWrapper}
-        >
-          {byIndex
-            ? data.map((item, index) => (
-                <div key={item} className={s.item} data-name={optionValue}>
-                  {`${index + 1}`}
-                </div>
-              ))
-            : data.map((item) => (
-                <div key={item} className={s.item} data-name={optionValue}>
-                  {item}
-                </div>
-              ))}
-        </div>
+      <div className={`${s.body} ${isOpen && s._active}`} onClick={selectData}>
+        {list.map((item) => (
+          <div key={item} className={s.item} data-name={optionDataset}>
+            {item}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -6,17 +6,13 @@ import { NextPrevBtns } from "../../../components/nextPrevBtns/NextPrevBtns";
 import { useDataForGrid } from "./useDataForGrid";
 import { useMatchMedia } from "../../../hooks/useMatchMedia";
 import { useWeekDates } from "./useDatesForWeek";
-import { useCheckCompletedEvents } from "./useCheckCompletedEvents";
-import { CompletedEvents } from "../../../components/completedEvents/CompletedEvents";
 
 export const WeekView = () => {
-  const ticker = useSelector((state) => state.events.entities.ticker);
+  const { ticker, events, exceptions } = useSelector((state) => state.events.entities);
   const isAuth = useSelector((state) => state.auth.entities.isAuth);
   const { isTablet } = useMatchMedia();
-  const events = useSelector((state) => state.events.entities);
   const { weekDates, update } = useWeekDates(ticker);
   const dataForGrid = useDataForGrid(weekDates);
-  const completedEvents = useCheckCompletedEvents(events.events);
   return (
     <main className={s.container}>
       <NextPrevBtns isWeek date={weekDates} update={update} value={7} />
@@ -46,7 +42,7 @@ export const WeekView = () => {
         <div className={s.events}>
           {isAuth
             ? dataForGrid.map((data) => {
-                for (let event of events.events) {
+                for (let event of events) {
                   if (event.locations.map((e) => e.split("/")[0]).includes(data)) {
                     let index = event.locations.findIndex((item) => item.split("/")[0] === data);
                     let column = event.locations[index].split("/")[1];
@@ -65,15 +61,13 @@ export const WeekView = () => {
                     );
                   }
                 }
-                if (!events.exceptions.includes(data)) {
+                if (!exceptions.includes(data)) {
                   return <div key={data} className={s.event} data-date={data}></div>;
                 }
               })
             : dataForGrid.map((data) => <div key={data} className={s.event} data-date={data}></div>)}
         </div>
       </div>
-
-      {completedEvents.length > 0 && <CompletedEvents completedEvents={completedEvents} />}
     </main>
   );
 };
