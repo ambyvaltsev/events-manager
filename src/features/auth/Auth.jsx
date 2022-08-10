@@ -1,8 +1,8 @@
 import s from "./Auth.module.scss";
 import { useState } from "react";
 import { Button } from "../../components/UI/button/Button";
-import { SignUp } from "./signUp/SignUp";
-import { LogIn } from "./logIn/LogIn";
+import { SignUp } from "./components/signUp/SignUp";
+import { LogIn } from "./components/logIn/LogIn";
 
 export const Auth = () => {
   const [loginView, setLoginView] = useState(true);

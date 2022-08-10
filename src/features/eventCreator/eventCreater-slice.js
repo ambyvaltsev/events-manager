@@ -73,7 +73,7 @@ export const createEventSlice = createSlice({
         }/${values ? values.restDays : state.event.days}`;
         state.event.locations.push(location);
         state.event.exceptions.push(...defineExceptions(state.event));
-        state.event.id = action.payload;
+        state.event.id = `${state.event.guest}-${state.event.date}.${state.event.month}.${state.event.year}`;
       },
     },
     getDataFromGuest: {

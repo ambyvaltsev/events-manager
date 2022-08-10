@@ -55,11 +55,10 @@ export const removeEvent = createAsyncThunk("@@events/removeEvent", async (event
   const response = await Promise.all([axios(eventConfig), axios(exceptionConfig)]);
 });
 export const loadEvents = createAsyncThunk("@@events/loadEvents", async (_, { getState }) => {
-  const { login, id } = getState().auth.entities;
   const { guests, guest } = getState().events.entities;
   const fetchGuest = guests.find((user) => user.name === guest);
-  const fetchId = login === "admin" ? fetchGuest.id : id;
-  const fetchName = login === "admin" ? fetchGuest.name : login;
+  const fetchId = fetchGuest.id;
+  const fetchName = fetchGuest.name;
   const eventsConfig = {
     url: `https://62aa4db13b3143855445970a.mockapi.io/events/${fetchId}`,
     method: "GET",
@@ -77,12 +76,11 @@ export const loadEvents = createAsyncThunk("@@events/loadEvents", async (_, { ge
 export const addEvent = createAsyncThunk(
   "@@events/addEvent",
   async (_, { getState, dispatch, rejectWithValue }) => {
-    const eventID = getState().events.entities.events.length + 1;
-    dispatch(createEvent(eventID));
-    const { guests } = getState().events.entities;
-    const guest = getState().creator.event.guest;
+    const { guests, guest } = getState().events.entities;
+    const {guest: selectedGuest } = getState().creator.event;
+    dispatch(createEvent());
     const event = getState().creator.event;
-    const fetchGuest = guests.find((user) => user.name === guest);
+    const fetchGuest = guests.find((user) => user.name === selectedGuest);
     const exceptionsGuest = await axios({
       url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
       method: "GET",
@@ -95,6 +93,7 @@ export const addEvent = createAsyncThunk(
     if (validateDate(event)) {
       return rejectWithValue("Can't select past time");
     }
+    
     if (
       exceptionsGuest.length > 0 &&
       event.exceptions.some((exception) => exceptionsGuest.data[guest].includes(exception))
@@ -105,21 +104,23 @@ export const addEvent = createAsyncThunk(
       url: `https://62aa4db13b3143855445970a.mockapi.io/events/${fetchGuest.id}`,
       method: "PUT",
       headers: { "Content-Type": " application/json" },
-      data: { [guest]: [...eventsGuest.data[guest], event] },
+      data: { [selectedGuest]: [...eventsGuest.data[selectedGuest], event] },
     };
     const exceptionConfig = {
       url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       data: {
-        [guest]: [...exceptionsGuest.data[guest], ...event.exceptions],
+        [selectedGuest]: [...exceptionsGuest.data[selectedGuest], ...event.exceptions],
       },
     };
     const response = await Promise.all([axios(eventConfig), axios(exceptionConfig)]);
-    return {
-      events: response[0].data[guest],
-      exceptions: response[1].data[guest],
-    };
+    if (guest === selectedGuest) {
+      return {
+        events: response[0].data[guest],
+        exceptions: response[1].data[guest],
+      };
+    }
   }
 );
 export const getAllGuests = createAsyncThunk("@@events/getAllGuests", async () => {

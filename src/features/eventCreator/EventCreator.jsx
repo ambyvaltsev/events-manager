@@ -1,9 +1,9 @@
 import s from "./EventCreator.module.scss";
-import { Calendar } from "../../components/calendar/Calendar";
+import { Calendar } from "./components/calendar/Calendar";
 import { Button } from "../../components/UI/button/Button";
 import { time } from "../../utils/date_arrays";
 import { Input } from "../../components/UI/input/Input";
-import { EventOption } from "../../components/eventOption/EventOption";
+import { EventOption } from "./components/eventOption/EventOption";
 import { useSelector } from "react-redux";
 import { useActions } from "../../hooks/useActions";
 import { useEffect } from "react";
