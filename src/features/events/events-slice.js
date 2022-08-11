@@ -134,7 +134,6 @@ export const getAllGuests = createAsyncThunk("@@events/getAllGuests", async () =
   return { guests, guestsNames };
 });
 const initialState = {
-  ticker: "",
   events: [],
   exceptions: [],
   guests: [],
@@ -179,11 +178,6 @@ export const eventsSlice = createSlice({
         state.entities.events.map((event, i) => (event.id = i + 1));
       },
     },
-    updTicker: {
-      reducer: (state, action) => {
-        state.entities.ticker = action.payload;
-      },
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -216,4 +210,4 @@ export const eventsSlice = createSlice({
   },
 });
 
-export const { postpone, remove, defaultEvents, updTicker, selectGuest } = eventsSlice.actions;
+export const { postpone, remove, defaultEvents, selectGuest } = eventsSlice.actions;

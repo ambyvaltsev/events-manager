@@ -1,12 +1,12 @@
-import s from "./WeekView.module.scss";
+import s from "./weekEvents.module.scss";
 import { time } from "../../../../utils/date_arrays";
-import { EventOuterView } from "../eventOuterView/EventOuterView";
+import { EventItem } from "../eventItem/EventItem";
 import { useSelector } from "react-redux";
 import { Navigator } from "../navigator/Navigator";
 import { useDataForGrid, useWeekDates } from "../../hooks";
 import { useMatchMedia } from "../../../../hooks/useMatchMedia";
 
-export const WeekView = () => {
+export const WeekEvents = () => {
   const { ticker, events, exceptions } = useSelector((state) => state.events.entities);
   const isAuth = useSelector((state) => state.auth.entities.isAuth);
   const { isTablet } = useMatchMedia();
@@ -47,7 +47,7 @@ export const WeekView = () => {
                     let column = event.locations[index].split("/")[1];
                     let row = event.hours;
                     return (
-                      <EventOuterView
+                      <EventItem
                         event={event}
                         key={data}
                         title={event.title}

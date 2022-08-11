@@ -1,14 +1,16 @@
-import s from "./MonthView.module.scss";
-import { useDisplayDaysInMonth, useEventsSelectedMonth } from "../../hooks/";
+import s from "./MonthEvents.module.scss";
+import { useDisplayDaysInMonth, useEventsSelectedMonth } from "../../hooks";
 import { useMatchMedia } from "../../../../hooks";
 import { weekShort, weekFull, months } from "../../../../utils/date_arrays";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Navigator } from "../navigator/Navigator";
 import { useNavigate } from "react-router-dom";
-import { updTicker } from "../../events-slice";
+import { useSelector } from "react-redux";
 
-export const MonthView = () => {
-  const navigator = useNavigate();
+export const MonthEvents = () => {
+  const cellsRef = useRef(null);
+  const { events } = useSelector((state) => state.events.entities);
+  const navigate = useNavigate();
   const { isMobile } = useMatchMedia();
   const [date, setDate] = useState({
     month: new Date().getMonth(),
@@ -28,20 +30,18 @@ export const MonthView = () => {
       ? setDate({ month: 11, year: date.year - 1 })
       : setDate({ ...date, month: date.month - 1 });
   };
-
   const handleOpenWeek = (e) => {
-    let ticker = "";
-    //подумать над реализацией (без изменения step)
     const target = e.target.textContent;
-    if (dataSelectedMonth.dates.includes(+target) && dataSelectedMonth.tickers) {
-      ticker = dataSelectedMonth.tickers.find((ticker) => ticker.split("-")[2] === target);
-      updTicker(ticker);
-      navigator("/");
+    if (dataSelectedMonth.some((data) => data.day === +target)) {
+      let id = dataSelectedMonth.find((data) => data.day === +target).id;
+      navigate(`/event/${id}`);
     }
   };
 
   useEffect(() => {
-    document.querySelector("[data-name]").addEventListener("click", handleOpenWeek);
+    const instance = cellsRef.current;
+    instance.addEventListener("click", handleOpenWeek);
+    return () => instance.removeEventListener("click", handleOpenWeek);
   }, [dataSelectedMonth]);
 
   return (
@@ -67,15 +67,16 @@ export const MonthView = () => {
             ))}
       </div>
 
-      <div className={s.monthDates} data-name="date-cells">
+      <div className={s.monthDates} ref={cellsRef}>
         {daysInMonth.cells.map((cell, index) => {
           return (
             <div
               key={index}
               className={
-                dataSelectedMonth.dates.includes(cell) ? `${s.monthDate} ${s._active}` : `${s.monthDate}`
+                dataSelectedMonth.some((data) => data.day === cell)
+                  ? `${s.monthDate} ${s._active}`
+                  : `${s.monthDate}`
               }
-              data-name={cell && "date-cell"}
             >
               {cell}
             </div>

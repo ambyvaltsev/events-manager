@@ -1,8 +1,8 @@
-import s from './PageNotFound.module.scss'
+import s from './NotFound404.module.scss'
 
 
 
-export const PageNotFound = () => {
+export const NotFound404 = () => {
   return (
     <div className={s.container}>
       <h1>Page not found</h1>

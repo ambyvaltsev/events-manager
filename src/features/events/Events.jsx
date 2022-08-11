@@ -1,16 +1,16 @@
-import s from "./Main.module.scss";
+import s from "./Events.module.scss";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Button } from "../../../../components/UI/button/Button";
-import { EventCreator } from "../../../eventCreator/EventCreator";
+import { Button } from "../../components/UI/button/Button";
+import { EventCreator } from "../eventCreator/EventCreator";
 import { useSelector } from "react-redux";
-import { EventOption } from "../../../eventCreator/components/eventOption/EventOption";
-import { useLoadData, useCheckCompletedEvents } from "../../hooks";
-import { useShowError } from "../../../alert/hooks/";
-import { Alert } from "../../../alert/Alert";
-import { CompletedEvents } from "../../components/completedEvents/CompletedEvents";
+import { EventOption } from "../eventCreator/components/eventOption/EventOption";
+import { useLoadData, useCheckCompletedEvents } from "./hooks";
+import { useShowError } from "../alert/hooks";
+import { Alert } from "../alert/Alert";
+import { CompletedEvents } from "./components/completedEvents/CompletedEvents";
 
-export const Main = () => {
+export const Events = () => {
   const { guestsNames, guest, events } = useSelector((state) => state.events.entities);
   const completedEvents = useCheckCompletedEvents(events);
   const alert = useSelector((state) => state.alert);

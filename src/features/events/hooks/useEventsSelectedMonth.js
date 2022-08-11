@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export const useEventsSelectedMonth = (date) => {
-  const [dataSelectedMonth, setDataSelectedMonth] = useState({ dates: [], events: [] });
+  const [dataSelectedMonth, setDataSelectedMonth] = useState([]);
   const events = useSelector((state) => state.events.entities.events);
 
   useEffect(() => {
@@ -10,32 +10,20 @@ export const useEventsSelectedMonth = (date) => {
       let eventsSelectedMonth = events.filter(
         (event) => event.month === date.month && event.year === date.year
       );
+      console.log(eventsSelectedMonth)
       let datesSelectedMonth = eventsSelectedMonth.reduce((acc, cur) => {
         if (cur.days > 1) {
           for (let i = 0; i < cur.days; i++) {
-            acc = [...acc, cur.date + i];
+            acc = [...acc, {day: cur.date + i, id: `${cur.date}.${cur.month}.${cur.year}`}];
           }
           return acc;
         } else {
-          return [...acc, cur.date];
+          return [...acc, {day: cur.date, id: `${cur.date}.${cur.month}.${cur.year}`}];
         }
       }, []);
 
-      //переделать
-      let ticker = eventsSelectedMonth.reduce((acc, cur) => {
-        if (cur.days > 1) {
-          for (let i = 0; i < cur.days; i++) {
-            acc = [...acc, `${cur.year}-${cur.month}-${cur.date + i}`];
-          }
-          return acc;
-        } else {
-          return [...acc, `${cur.year}-${cur.month}-${cur.date}`];
-        }
-      }, []);
-      const data = { dates: datesSelectedMonth, tickers: ticker };
-      setDataSelectedMonth(data);
+      setDataSelectedMonth([...datesSelectedMonth]);
     }
   }, [events, date]);
-
   return dataSelectedMonth;
 };

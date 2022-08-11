@@ -1,10 +1,10 @@
-import s from "./EventOuterView.module.scss";
+import s from "./EventItem.module.scss";
 import { CgCloseR } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useActions } from "../../../../hooks/useActions";
 import { useSelector } from "react-redux";
 
-export const EventOuterView = ({ style, event }) => {
+export const EventItem = ({ style, event }) => {
   const { login } = useSelector((state) => state.auth.entities);
   const { removeEvent } = useActions();
 
