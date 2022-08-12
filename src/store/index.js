@@ -3,6 +3,7 @@ import { alertSlice } from "../features/alert/alert-slice";
 import { authSlice } from "../features/auth/auth-slice";
 import { createEventSlice } from "../features/eventCreator/eventCreater-slice";
 import { eventsSlice } from "../features/events/events-slice";
+import { usersSlice } from "../features/users/users-slice";
 import { loadState, saveState } from "../utils/localStorage";
 import { throttle } from "../utils/throttle";
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     events: eventsSlice.reducer,
     alert: alertSlice.reducer,
     auth: authSlice.reducer,
+    users: usersSlice.reducer
   },
   preloadedState,
 });

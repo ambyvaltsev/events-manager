@@ -4,7 +4,7 @@
   padding: 5px 10px;
   background-color: white;
   cursor: pointer;
-  box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 5px 3px var(--color-black-shadow);
   font-size: 18px;
   @media (max-width: 575.98px) {
     font-size: 12px;

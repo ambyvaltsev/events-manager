@@ -11,8 +11,8 @@ export const postponeEvent = createAsyncThunk(
   "@@events/postponeEvent",
   async (idEvent, { getState, dispatch }) => {
     const { login, id } = getState().auth.entities;
-    const { guests, guest } = getState().events.entities;
-    const fetchGuest = guests.find((user) => user.name === guest);
+    const { users, user } = getState().users.entities;
+    const fetchGuest = users.find((u) => u.name === user);
     const fetchId = login === "admin" ? fetchGuest.id : id;
     const fetchName = login === "admin" ? fetchGuest.name : login;
     dispatch(postpone(idEvent));
@@ -27,8 +27,8 @@ export const postponeEvent = createAsyncThunk(
 );
 export const removeEvent = createAsyncThunk("@@events/removeEvent", async (event, { getState, dispatch }) => {
   dispatch(remove(event));
-  const { guests, guest } = getState().events.entities;
-  const fetchGuest = guests.find((user) => user.name === guest);
+  const { users, user } = getState().users.entities;
+  const fetchGuest = users.find((u) => u.name === user);
   const exceptionsGuest = await axios({
     url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
     method: "GET",
@@ -37,26 +37,26 @@ export const removeEvent = createAsyncThunk("@@events/removeEvent", async (event
     url: `https://62aa4db13b3143855445970a.mockapi.io/events/${fetchGuest.id}`,
     method: "GET",
   });
-  const exceptions = exceptionsGuest.data[guest].filter((excep) => !event.exceptions.includes(excep));
-  const events = eventsGuest.data[guest].filter((ev) => ev.id !== event.id);
+  const exceptions = exceptionsGuest.data[user].filter((excep) => !event.exceptions.includes(excep));
+  const events = eventsGuest.data[user].filter((ev) => ev.id !== event.id);
 
   const eventConfig = {
     url: `https://62aa4db13b3143855445970a.mockapi.io/events/${fetchGuest.id}`,
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    data: { [guest]: [...events] },
+    data: { [user]: [...events] },
   };
   const exceptionConfig = {
     url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    data: { [guest]: [...exceptions] },
+    data: { [user]: [...exceptions] },
   };
   const response = await Promise.all([axios(eventConfig), axios(exceptionConfig)]);
 });
 export const loadEvents = createAsyncThunk("@@events/loadEvents", async (_, { getState }) => {
-  const { guests, guest } = getState().events.entities;
-  const fetchGuest = guests.find((user) => user.name === guest);
+  const { users, user } = getState().users.entities;
+  const fetchGuest = users.find((u) => u.name === user);
   const fetchId = fetchGuest.id;
   const fetchName = fetchGuest.name;
   const eventsConfig = {
@@ -76,11 +76,11 @@ export const loadEvents = createAsyncThunk("@@events/loadEvents", async (_, { ge
 export const addEvent = createAsyncThunk(
   "@@events/addEvent",
   async (_, { getState, dispatch, rejectWithValue }) => {
-    const { guests, guest } = getState().events.entities;
-    const {guest: selectedGuest } = getState().creator.event;
+    const { users, user } = getState().users.entities;
+    const { selectedUser } = getState().creator.event;
     dispatch(createEvent());
     const event = getState().creator.event;
-    const fetchGuest = guests.find((user) => user.name === selectedGuest);
+    const fetchGuest = users.find((u) => u.name === selectedUser);
     const exceptionsGuest = await axios({
       url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
       method: "GET",
@@ -93,10 +93,10 @@ export const addEvent = createAsyncThunk(
     if (validateDate(event)) {
       return rejectWithValue("Can't select past time");
     }
-    
+
     if (
       exceptionsGuest.length > 0 &&
-      event.exceptions.some((exception) => exceptionsGuest.data[guest].includes(exception))
+      event.exceptions.some((exception) => exceptionsGuest.data[user].includes(exception))
     ) {
       return rejectWithValue("There is already an event at this time");
     }
@@ -104,55 +104,38 @@ export const addEvent = createAsyncThunk(
       url: `https://62aa4db13b3143855445970a.mockapi.io/events/${fetchGuest.id}`,
       method: "PUT",
       headers: { "Content-Type": " application/json" },
-      data: { [selectedGuest]: [...eventsGuest.data[selectedGuest], event] },
+      data: { [selectedUser]: [...eventsGuest.data[selectedUser], event] },
     };
     const exceptionConfig = {
       url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       data: {
-        [selectedGuest]: [...exceptionsGuest.data[selectedGuest], ...event.exceptions],
+        [selectedUser]: [...exceptionsGuest.data[selectedUser], ...event.exceptions],
       },
     };
     const response = await Promise.all([axios(eventConfig), axios(exceptionConfig)]);
-    if (guest === selectedGuest) {
+    if (user === selectedUser) {
       return {
-        events: response[0].data[guest],
-        exceptions: response[1].data[guest],
+        events: response[0].data[user],
+        exceptions: response[1].data[user],
       };
     }
   }
 );
-export const getAllGuests = createAsyncThunk("@@events/getAllGuests", async () => {
-  const { data } = await axios({
-    url: `https://62aa4db13b3143855445970a.mockapi.io/users`,
-    method: "GET",
-  });
-  const guests = data.map((user) => ({ name: user.login, id: user.id }));
 
-  const guestsNames = guests.map((user) => user.name);
-  return { guests, guestsNames };
-});
 const initialState = {
   events: [],
   exceptions: [],
-  guests: [],
-  guestsNames: [],
-  guest: "admin",
 };
 export const eventsSlice = createSlice({
   name: "@@events",
   initialState: {
     entities: initialState,
-    loading: "idle",
+    loading: false,
     error: null,
   },
   reducers: {
-    selectGuest: {
-      reducer: (state, action) => {
-        state.entities.guest = action.payload;
-      },
-    },
     postpone: {
       reducer: (state, action) => {
         state.entities.events.map((event) => {
@@ -191,10 +174,7 @@ export const eventsSlice = createSlice({
         state.entities.events = action.payload.events;
         state.entities.exceptions = action.payload.exceptions;
       })
-      .addCase(getAllGuests.fulfilled, (state, action) => {
-        state.entities.guests = action.payload.guests;
-        state.entities.guestsNames = action.payload.guestsNames;
-      })
+
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, action) => {

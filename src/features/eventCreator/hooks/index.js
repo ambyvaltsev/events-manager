@@ -1,1 +1,0 @@
-export { useSelectData } from "./useSelectData";

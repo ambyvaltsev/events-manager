@@ -46,7 +46,7 @@ const initialState = {
     locations: [],
     exceptions: [],
     isPostponed: false,
-    guest: "admin",
+    selectedUser: "admin",
   },
   leftPart: {},
 };
@@ -73,12 +73,12 @@ export const createEventSlice = createSlice({
         }/${values ? values.restDays : state.event.days}`;
         state.event.locations.push(location);
         state.event.exceptions.push(...defineExceptions(state.event));
-        state.event.id = `${state.event.guest}-${state.event.date}.${state.event.month}.${state.event.year}`;
+        state.event.id = `${state.event.selectedUser}-${state.event.date}.${state.event.month}.${state.event.year}`;
       },
     },
-    getDataFromGuest: {
+    getDataFromUser: {
       reducer: (state, action) => {
-        state.event.guest = action.payload;
+        state.event.selectedUser = action.payload || state.event.selectedUser;
       },
     },
     getDataFromTitle: {
@@ -93,17 +93,17 @@ export const createEventSlice = createSlice({
     },
     getDataFromTime: {
       reducer: (state, action) => {
-        state.event.time = action.payload;
+        state.event.time = +action.payload.split(":")[0];
       },
     },
     getDataFromDays: {
       reducer: (state, action) => {
-        state.event.days = action.payload;
+        state.event.days = +action.payload;
       },
     },
     getDataFromHours: {
       reducer: (state, action) => {
-        state.event.hours = action.payload;
+        state.event.hours = +action.payload;
       },
     },
     nextMonth: {

@@ -1,0 +1,102 @@
+.container {
+  position: relative;
+  width: 200px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  min-height: 36px;
+  box-shadow: 2px 2px 5px 3px var(--color-black-shadow);
+  .header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .date {
+      margin: 0;
+      font-size: 18px;
+      padding: 5px;
+      width: 100%;
+    }
+    .button {
+      margin-right: 3px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  }
+  .body {
+    z-index: 100;
+    position: absolute;
+    left: -2px;
+    top: 100%;
+    width: calc(100% + 4px);
+    background-color: white;
+    border: 2px solid black;
+    .year {
+      width: 100%;
+      padding: 10px;
+      border-bottom: 2px solid black;
+    }
+    .month {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 5px;
+      border-bottom: 2px solid black;
+      font-size: 14px;
+      .month__name {
+        text-align: center;
+        min-width: 70px;
+      }
+      .month__btn {
+        font-size: 32px;
+        cursor: pointer;
+      }
+    }
+    .dates {
+      padding: 10px 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .weekNames {
+        width: 180px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        .weekName {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 14px;
+        }
+      }
+      .monthDates {
+        width: 180px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(6, 20px);
+        padding: 5px;
+        .monthDate {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 15px;
+          cursor: pointer;
+          &._active {
+            background-color: rgba(34, 37, 40, 0.7);
+            border-radius: 50%;
+            color: white;
+          }
+          &[data-name="date-cell"]:hover {
+            transform: scale(1.1);
+            background-color: rgba(34, 37, 40, 0.7);
+            border-radius: 50%;
+            color: white;
+          }
+        }
+      }
+    }
+    .cancel {
+      margin: 0 0 5px 10px;
+    }
+  }
+}

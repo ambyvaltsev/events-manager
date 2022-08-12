@@ -1,0 +1,1 @@
+export { useGetEvent } from "./useGetEvent";

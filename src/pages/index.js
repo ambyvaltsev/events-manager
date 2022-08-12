@@ -1,6 +1,6 @@
-export { AuthPage } from "./Auth-page";
-export { EventsPage } from "./Events-page";
-export { WeekPage } from "./Week-page";
-export { MonthPage } from "./Month-page";
-export { EventPage } from "./Event-page";
-export { NotFoundPage } from "./NotFound-page";
+export { Auth } from "./auth/Auth";
+export { Events } from "./events/Events";
+export { WeekEvents } from "./weekEvents/WeekEvents";
+export { MonthEvents } from "./monthEvents/MonthEvents";
+export { Event } from "./event/Event";
+export { NotFoundPage } from "./notFoundPage/NotFoundPage";

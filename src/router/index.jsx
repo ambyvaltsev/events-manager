@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import { AuthPage, EventsPage, WeekPage, MonthPage, EventPage } from "../pages";
+import { Auth, Events, WeekEvents, MonthEvents, Event } from "../pages";
 
 export const mapRoutes = (routes) => {
   function mapFunc(routes) {
@@ -13,15 +13,15 @@ export const mapRoutes = (routes) => {
 };
 
 export const routes = [
-  { path: "auth", element: <AuthPage/> },
+  { path: "auth", element: <Auth/> },
   {
     path: "/",
-    element: <EventsPage/>,
+    element: <Events/>,
     child: [
-      { path: "/", element: <WeekPage/> },
-      { path: "month", element: <MonthPage />},
+      { path: "/", element: <WeekEvents/> },
+      { path: "month", element: <MonthEvents />},
     ],
   },
-  { path: "event/:id", element: <EventPage/> },
+  { path: "event/:id", element: <Event/> },
   { path: "*" },
 ];

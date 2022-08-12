@@ -4,9 +4,9 @@
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px 10px;
-  box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 2px 5px 3px var(--color-black-shadow);
   &:focus {
-    box-shadow: 2px 2px 5px 3px rgba(33, 98, 238, 0.6);
+    box-shadow: 2px 2px 5px 3px var(--color-blue-shadow);
   }
 }
 .label {
