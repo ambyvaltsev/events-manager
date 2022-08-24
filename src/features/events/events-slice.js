@@ -81,6 +81,7 @@ export const addEvent = createAsyncThunk(
     dispatch(createEvent());
     const event = getState().creator.event;
     const fetchGuest = users.find((u) => u.name === selectedUser);
+
     const exceptionsGuest = await axios({
       url: `https://62aa4db13b3143855445970a.mockapi.io/exceptions/${fetchGuest.id}`,
       method: "GET",
@@ -94,10 +95,7 @@ export const addEvent = createAsyncThunk(
       return rejectWithValue("Can't select past time");
     }
 
-    if (
-      exceptionsGuest.length > 0 &&
-      event.exceptions.some((exception) => exceptionsGuest.data[user].includes(exception))
-    ) {
+    if (event.exceptions.some((exception) => exceptionsGuest.data[selectedUser].includes(exception))) {
       return rejectWithValue("There is already an event at this time");
     }
     const eventConfig = {

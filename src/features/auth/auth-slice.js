@@ -3,6 +3,7 @@ import axios from "axios";
 import { defaultEvents } from "../events/events-slice";
 
 export const createUser = createAsyncThunk("@@auth/createUser", async (user, { rejectWithValue }) => {
+
   const checkUser = await axios({
     url: `https://62aa4db13b3143855445970a.mockapi.io/users?login=${user.login}`,
     method: "GET",
