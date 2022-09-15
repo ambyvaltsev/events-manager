@@ -41,7 +41,7 @@ export const AuthForm = (props) => {
               required: "The field is required",
               minLength: { value: 5, message: "Min 5 characters" },
               pattern: {
-                value: /((?=.*[0-9])([A-Za-z]))/,
+                value: /[0-9a-zA-Z]/,
                 message: "Only latin letters and at least one number",
               },
             }),
